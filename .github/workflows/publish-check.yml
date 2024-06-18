@@ -2,7 +2,7 @@ name: Publish Check
 
 on:
   schedule:
-    - cron: '*/15 * * * *' # Replace 15 with your desired interval in minutes
+    - cron: '*/1 * * * *' # Replace 1 with your desired interval in minutes
 
 jobs:
   devnet-autodeploy:
