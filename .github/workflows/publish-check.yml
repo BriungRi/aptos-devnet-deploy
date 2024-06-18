@@ -1,6 +1,12 @@
 name: Publish Check
 
 on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
   schedule:
     - cron: '*/1 * * * *' # Replace 1 with your desired interval in minutes
 
@@ -9,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
       - name: Check and Publish
         uses: ./ # Uses an action in the root of the repository
         with:
