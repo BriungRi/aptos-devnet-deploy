@@ -18,6 +18,9 @@ runs:
         nix_path: nixpkgs=channel:nixpkgs-unstable
     - name: Run publish check
       run: ./publish-check.sh
+      env:
+        PUBLISH_COMMAND: ${{ inputs.publish_command }}
+        CHECK_ADDRESS: ${{ inputs.check_address }}
       shell: bash
 branding:
   icon: 'check-circle'
