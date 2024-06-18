@@ -6,9 +6,6 @@ set -e
 PUBLISH_COMMAND="${PUBLISH_COMMAND}"
 CHECK_ADDRESS="${CHECK_ADDRESS}"
 
-echo "PUBLISH_COMMAND: $PUBLISH_COMMAND"
-echo "CHECK_ADDRESS: $CHECK_ADDRESS"
-
 http_code=$(
   curl --write-out '%{http_code}' \
        --silent \
