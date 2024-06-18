@@ -28,4 +28,4 @@ jobs:
             --private-key="0x4c60f5dd12731c08b1a74410845668e2f063fbc9b0029966a26f59094983e578" \
             --url="https://fullnode.devnet.aptoslabs.com/" \
             --assume-yes
-          check_address: 0x3cb93ebcabdb73a76c23df00c3176a14efe64b948ca4b319f88561068e77df2d
+          check_address: "0x3cb93ebcabdb73a76c23df00c3176a14efe64b948ca4b319f88561068e77df2d"
