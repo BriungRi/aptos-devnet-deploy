@@ -1,0 +1,30 @@
+name: 'Aptos Devnet Autodeploy action'
+description: 'Helps keep packages deployed to Aptos devnet'
+author: 'Brian Li'
+inputs:
+  publish_command:
+    description: 'Command to publish the package'
+    required: true
+  check_address:
+    description: 'Address to check for the published package'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Nix
+      uses: cachix/install-nix-action@v14
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - name: Initialize shell.nix
+      run: nix-shell --pure --run "echo Nix environment initialized"
+
+    - name: Run publish check
+      run: ./publish-check.sh
+      shell: bash
+branding:
+  icon: 'check-circle'
+  color: 'green'
