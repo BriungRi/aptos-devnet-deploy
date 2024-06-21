@@ -7,7 +7,6 @@ PACKAGE_DIR="${PACKAGE_DIR}"
 NAMED_ADDRESSES="${NAMED_ADDRESSES}"
 PRIVATE_KEY="${PRIVATE_KEY}"
 UPGRADE_ALLOWED="${UPGRADE_ALLOWED}"
-echo "UPGRADE_ALLOWED: $UPGRADE_ALLOWED"
 DEVNET_URL="https://fullnode.devnet.aptoslabs.com/"
 DEVNET_FAUCET_URL="https://faucet.devnet.aptoslabs.com/"
 aptos init \
@@ -24,7 +23,11 @@ http_code=$(
 )
 
 if [ $http_code -eq 404 ] || [ "$UPGRADE_ALLOWED" = "true" ]; then
-  echo "Package is not published. Running publish command."
+  if [ $http_code -eq 404 ]; then
+    echo "Package is not published. Running publish command."
+  else
+    echo "Package is already published. Running upgrade command."
+  fi
   aptos account fund-with-faucet \
     --account="$CHECK_ADDRESS" \
     --url="$DEVNET_URL" \
