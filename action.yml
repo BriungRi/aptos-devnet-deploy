@@ -2,12 +2,19 @@ name: 'Aptos Devnet Autodeploy action'
 description: 'Helps keep packages deployed to Aptos devnet'
 author: 'Brian Li'
 inputs:
-  publish_command:
-    description: 'Command to publish the package'
+  package_dir:
+    description: 'Directory containing the package to publish'
     required: true
-  check_address:
-    description: 'Address to check for the published package'
+  named_addresses:
+    description: 'Named addresses to publish the package with'
+    required: false
+  private_key:
+    description: 'Private key to publish the package with'
     required: true
+  upgrade_allowed:
+    description: 'Whether to allow upgrades'
+    type: boolean
+    required: false
 runs:
   using: 'composite'
   steps:
@@ -19,8 +26,10 @@ runs:
     - name: Run publish check
       run: nix-shell --command './publish-check.sh'
       env:
-        PUBLISH_COMMAND: ${{ inputs.publish_command }}
-        CHECK_ADDRESS: ${{ inputs.check_address }}
+        PACKAGE_DIR: ${{ inputs.package_dir }}
+        NAMED_ADDRESSES: ${{ inputs.named_addresses }}
+        PRIVATE_KEY: ${{ inputs.private_key }}
+        UPGRADE_ALLOWED: ${{ inputs.upgrade_allowed }}
       shell: bash
 branding:
   icon: 'check-circle'
