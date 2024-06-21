@@ -23,5 +23,5 @@ jobs:
         with:
           package_dir: example/aptos-devnet-autodeploy
           named_addresses: module_addr=0x3cb93ebcabdb73a76c23df00c3176a14efe64b948ca4b319f88561068e77df2d
-          private_key: "0x4c60f5dd12731c08b1a74410845668e2f063fbc9b0029966a26f59094983e578"
+          private_key: ${{ secrets.PRIVATE_KEY }}
           upgrade_allowed: true
