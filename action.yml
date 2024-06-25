@@ -24,7 +24,7 @@ runs:
       with:
         nix_path: nixpkgs=channel:nixpkgs-unstable
     - name: Run publish check
-      run: nix-shell --command './publish-check.sh'
+      run: nix-shell ${{ github.action_path }}/shell.nix --command './publish-check.sh'
       env:
         PACKAGE_DIR: ${{ inputs.package_dir }}
         NAMED_ADDRESSES: ${{ inputs.named_addresses }}
