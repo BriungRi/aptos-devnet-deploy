@@ -36,9 +36,9 @@ runs:
       uses: cachix/install-nix-action@v17
       with:
         nix_path: nixpkgs=channel:nixpkgs-unstable
-    - name: Run publish check
+    - name: Run publish
       if: steps.precheck.outputs.exit_code == '0'
-      run: nix-shell ${{ github.action_path }}/shell.nix --command '${{ github.action_path }}/publish-check.sh'
+      run: nix-shell ${{ github.action_path }}/shell.nix --command '${{ github.action_path }}/publish.sh'
       env:
         PACKAGE_DIR: ${{ inputs.package_dir }}
         NAMED_ADDRESSES: ${{ inputs.named_addresses }}
