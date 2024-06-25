@@ -1,58 +1,41 @@
-name: 'Aptos Devnet Autodeploy action'
-description: 'Helps keep packages deployed to Aptos devnet'
-author: 'Brian Li'
+name: "Aptos Devnet Autodeploy action"
+description: "Helps keep packages deployed to Aptos devnet"
+author: "Brian Li"
 inputs:
   package_dir:
-    description: 'Directory containing the package to publish'
+    description: "Directory containing the package to publish"
     required: true
   check_address:
-    description: 'Address to check for the package'
+    description: "Address to check for the package"
     required: true
   named_addresses:
-    description: 'Named addresses to publish the package with'
+    description: "Named addresses to publish the package with"
     required: false
   private_key:
-    description: 'Private key to publish the package with'
+    description: "Private key to publish the package with"
     required: true
   upgrade_allowed:
-    description: 'Whether to allow upgrades'
+    description: "Whether to allow upgrades"
     type: boolean
     required: false
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - uses: actions/checkout@v3
-    - name: Run precheck
-      id: precheck
-      run: |
-        '${{ github.action_path }}/precheck.sh'
-        echo "exit_code=$?" >> $GITHUB_OUTPUT
-      env:
-        CHECK_ADDRESS: ${{ inputs.check_address }}
-        UPGRADE_ALLOWED: ${{ inputs.upgrade_allowed }}
-      shell: bash
     - name: Install Nix
-      if: steps.precheck.outputs.exit_code == '0'
       uses: cachix/install-nix-action@v17
       with:
         nix_path: nixpkgs=channel:nixpkgs-unstable
-    - name: Run publish
-      if: steps.precheck.outputs.exit_code == '0'
-      run: nix-shell ${{ github.action_path }}/shell.nix --command '${{ github.action_path }}/publish.sh'
+    - name: Run publish check
+      run: "${{ github.action_path }}/publish-check.sh"
       env:
+        ACTION_PATH: ${{ github.action_path }}
         PACKAGE_DIR: ${{ inputs.package_dir }}
+        CHECK_ADDRESS: ${{ inputs.check_address }}
         NAMED_ADDRESSES: ${{ inputs.named_addresses }}
         PRIVATE_KEY: ${{ inputs.private_key }}
         UPGRADE_ALLOWED: ${{ inputs.upgrade_allowed }}
       shell: bash
-    - name: Set action outcome
-      if: always()
-      shell: bash
-      run: |
-        if [ "${{ steps.precheck.outputs.exit_code }}" != "0" ]; then
-          echo "Precheck failed, but action is considered successful"
-        fi
-        exit 0
 branding:
-  icon: 'check-circle'
-  color: 'green'
+  icon: "check-circle"
+  color: "green"
