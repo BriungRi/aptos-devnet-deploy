@@ -27,7 +27,6 @@ runs:
       run: |
         '${{ github.action_path }}/precheck.sh'
         echo "exit_code=$?" >> $GITHUB_OUTPUT
-        exit 0
       env:
         CHECK_ADDRESS: ${{ inputs.check_address }}
         UPGRADE_ALLOWED: ${{ inputs.upgrade_allowed }}
@@ -46,6 +45,14 @@ runs:
         PRIVATE_KEY: ${{ inputs.private_key }}
         UPGRADE_ALLOWED: ${{ inputs.upgrade_allowed }}
       shell: bash
+    - name: Set action outcome
+      if: always()
+      shell: bash
+      run: |
+        if [ "${{ steps.precheck.outputs.exit_code }}" != "0" ]; then
+          echo "Precheck failed, but action is considered successful"
+        fi
+        exit 0
 branding:
   icon: 'check-circle'
   color: 'green'
