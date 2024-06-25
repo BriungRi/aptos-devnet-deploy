@@ -31,7 +31,7 @@ jobs:
         uses: BriungRi/aptos-devnet-deploy@master # Can use a pinned commit hash
         with:
           package_dir: example/aptos-devnet-autodeploy
-          check_address: 0x3cb93ebcabdb73a76c23df00c3176a14efe64b948ca4b319f88561068e77df2d
+          check_address: "0x3cb93ebcabdb73a76c23df00c3176a14efe64b948ca4b319f88561068e77df2d"
           named_addresses: module_addr=0x3cb93ebcabdb73a76c23df00c3176a14efe64b948ca4b319f88561068e77df2d
           private_key: ${{ secrets.PRIVATE_KEY }}
           upgrade_allowed: true
