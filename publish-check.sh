@@ -17,6 +17,10 @@ http_code=$(
 )
 
 if [ $http_code -eq 404 ] || [ "$UPGRADE_ALLOWED" = "true" ]; then
+  nix-shell $ACTION_PATH/shell.nix --command "aptos init \
+    --private-key=$PRIVATE_KEY \
+    --network=devnet \
+    --assume-yes"
   nix-shell $ACTION_PATH/shell.nix --command "aptos account fund-with-faucet \
     --account="$CHECK_ADDRESS" \
     --url="$DEVNET_URL" \
