@@ -17,15 +17,15 @@ http_code=$(
 )
 
 if [ $http_code -eq 404 ] || [ "$UPGRADE_ALLOWED" = "true" ]; then
-  nix-shell $ACTION_PATH/shell.nix --command aptos account fund-with-faucet \
+  nix-shell $ACTION_PATH/shell.nix --command "aptos account fund-with-faucet \
     --account="$CHECK_ADDRESS" \
     --url="$DEVNET_URL" \
-    --faucet-url="$DEVNET_FAUCET_URL"
-  nix-shell $ACTION_PATH/shell.nix --command aptos move publish \
+    --faucet-url="$DEVNET_FAUCET_URL""
+  nix-shell $ACTION_PATH/shell.nix --command "aptos move publish \
     --package-dir="$PACKAGE_DIR" \
     --named-addresses="$NAMED_ADDRESSES" \
     --url="$DEVNET_URL" \
-    --assume-yes
+    --assume-yes"
 elif [ $http_code -eq 200 ]; then
   echo "Package is already published at $CHECK_ADDRESS"
 else
