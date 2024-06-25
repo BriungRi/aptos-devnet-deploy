@@ -25,7 +25,7 @@ runs:
     - name: Run precheck
       id: precheck
       run: |
-        './${{ github.action_path }}/precheck.sh'
+        '${{ github.action_path }}/precheck.sh'
         echo "exit_code=$?" >> $GITHUB_OUTPUT
       env:
         CHECK_ADDRESS: ${{ inputs.check_address }}
