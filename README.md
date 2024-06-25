@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Check and Publish
-        uses: ./ # Uses an action in the root of the repository
+        uses: BriungRi/aptos-devnet-deploy@master # Can use a pinned commit hash
         with:
           package_dir: example/aptos-devnet-autodeploy
           named_addresses: module_addr=0x3cb93ebcabdb73a76c23df00c3176a14efe64b948ca4b319f88561068e77df2d
