@@ -30,6 +30,7 @@ runs:
       run: |
         mkdir -p ~/.config/nixpkgs
         echo '{ permittedInsecurePackages = ["openssl-1.1.1w"]; }' > ~/.config/nixpkgs/config.nix
+      shell: bash
     - name: Run publish check
       run: "${{ github.action_path }}/publish-check.sh"
       env:
