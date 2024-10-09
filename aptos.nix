@@ -2,10 +2,10 @@
 
 let
   os =
-    if stdenv.isLinux then "Ubuntu"
+    if stdenv.isLinux then "Ubuntu-22.04"
     else throw "Unsupported platform ${stdenv.system}";
 
-  sha256 = "sha256-xs3w4MuYQ8qntU+xx5zB/RFE9M9TFt/s2PZzIhDGYS4=";
+  sha256 = "sha256-ojzgj+WBPVv1fpTRJwJWNuDucpN8Un1nnA38jbW7tiY=";
 
 in stdenv.mkDerivation rec {
   pname = "aptos-cli";
