@@ -26,6 +26,10 @@ runs:
       uses: cachix/install-nix-action@v17
       with:
         nix_path: nixpkgs=channel:nixpkgs-unstable
+    - name: Allow insecure packages
+      run: |
+        mkdir -p ~/.config/nixpkgs
+        echo '{ permittedInsecurePackages = ["openssl-1.1.1w"]; }' > ~/.config/nixpkgs/config.nix
     - name: Run publish check
       run: "${{ github.action_path }}/publish-check.sh"
       env:
