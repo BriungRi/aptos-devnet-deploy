@@ -4,11 +4,12 @@ let
   os =
     if stdenv.isLinux then "Ubuntu"
     else throw "Unsupported platform ${stdenv.system}";
-  sha256 = "sha256-yyeRIzMxq0cYK7zL5FDAV+xst5f1ZULCAvfqcSNvywk=";
+
+  sha256 = "sha256-xs3w4MuYQ8qntU+xx5zB/RFE9M9TFt/s2PZzIhDGYS4=";
 
 in stdenv.mkDerivation rec {
   pname = "aptos-cli";
-  version = "3.3.1";
+  version = "4.2.1";
 
   src = fetchurl {
     url = "https://github.com/aptos-labs/aptos-core/releases/download/${pname}-v${version}/${pname}-${version}-${os}-x86_64.zip";
